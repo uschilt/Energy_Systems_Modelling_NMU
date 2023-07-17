@@ -17,6 +17,7 @@ locations:
                 constraints.resource: file=demand_heat.csv:heat_kWh
                 # constraints.resource: file=demand_heat_orig.csv
             tes:
+            ees:
         #available_area: 57 # (m2) only south-roof side (default: 57) !This is commented-out because the are is defined under techs::pv
         coordinates: {lat: 47.49, lon: 8.26} # Allmendstrasse 3, 5300 Turgi
     # X1-end

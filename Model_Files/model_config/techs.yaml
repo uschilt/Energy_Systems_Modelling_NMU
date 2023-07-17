@@ -101,6 +101,23 @@ techs:
             monetary:
                 interest_rate: 0.04
                 storage_cap: 46 # cost per kWh
+                
+
+    ees:
+        essentials:
+            name: 'battery storage'
+            color: '#6694F6'
+            parent: storage
+            carrier_in: electricity
+            carrier_out: electricity
+        constraints:
+            #storage_cap_equals: 200 # storage capacity (kWh); for max storage capacity, use: 'storage_cap_max'
+            storage_cap_max: 200 # storage capacity (kWh); for max storage capacity, use: 'storage_cap_max'
+            lifetime: 25 # years
+        costs:
+            monetary:
+                interest_rate: 0.04
+                storage_cap: 46 # cost per kWh
             
 
 
