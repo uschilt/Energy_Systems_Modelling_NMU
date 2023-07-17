@@ -64,25 +64,6 @@ techs:
                 # om_con: 0.0 # kg Co2/kWh carrier consumption cost
     # pv-end
 
-##-Non-Renewables-## 
-    ccgt:
-        essentials:
-            name: 'Combined cycle gas turbine'
-            color: '#FDC97D'
-            parent: supply
-            carrier_out: electricity
-        constraints:
-            resource: inf
-            energy_eff: 0.5
-            energy_cap_max: 40000  # kW
-            energy_cap_max_systemwide: 100000  # kW
-            #energy_ramping: 0.8
-            lifetime: 25
-        costs:
-            monetary:
-                interest_rate: 0 #0.10
-                energy_cap: 0 #750  # USD per kW
-                om_con: 0 #0.02  # USD per kWh
     
 ##-Storage-##
 

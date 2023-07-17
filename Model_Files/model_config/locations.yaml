@@ -6,7 +6,6 @@ locations:
             pv:
                 constraints:
                     # energy_cap_max: 10 # approximation based on available roof area (south) and high eff. PV modules
-            ccgt:
             supply_grid_power:
                 #  costs.monetary.energy_cap: 100 # cost of transformers
             demand_electricity:
