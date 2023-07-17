@@ -1,0 +1,34 @@
+##
+# Overrides for different example model configuratiions
+##
+
+overrides:
+    milp:
+        model.name: 'Urban-scale example model with MILP'
+        run.solver_options.mipgap: 0.05
+
+    mapbox_ready:
+        locations:
+            X1.coordinates: {lat: 51.4596158, lon: -0.1613446}
+
+    operate:
+        run.mode: operate
+        run.operation:
+            window: 24
+            horizon: 48
+        model.subset_time: ['2005-07-01', '2005-07-10']
+        locations:
+            X1:
+                techs:
+                    pv.constraints.energy_cap_max: 10000
+                    supply_grid_power.constraints.energy_cap_max: 40
+
+    time_masking:
+        model.name: 'Urban-scale example model with time masking'
+        model.subset_time: '2005-01'
+        # Resample time resolution to 6-hourly
+        model.time:
+            masks:
+                - {function: extreme_diff, options: {tech0: demand_heat, tech1: demand_electricity, how: max, n: 2}}
+            function: resample
+            function_options: {resolution: 6H}

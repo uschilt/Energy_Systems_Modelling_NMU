@@ -1,0 +1,21 @@
+locations:
+    # X1-start: Building at Allmendstrasse 3, 5300 Turgi
+    X1:
+        techs:
+            ahp:
+            pv:
+                constraints:
+                    # energy_cap_max: 10 # approximation based on available roof area (south) and high eff. PV modules
+            supply_grid_power:
+                #  costs.monetary.energy_cap: 100 # cost of transformers
+            demand_electricity:
+                constraints.resource: file=demand_power.csv:power_demand_kW
+                #constraints.resource: file=demand_power_0.csv:power_demand_kW
+                #constraints.resource: file=demand_power_orig.csv
+            demand_heat:
+                constraints.resource: file=demand_heat.csv:heat_kWh
+                # constraints.resource: file=demand_heat_orig.csv
+            tes:
+        #available_area: 57 # (m2) only south-roof side (default: 57) !This is commented-out because the are is defined under techs::pv
+        coordinates: {lat: 47.49, lon: 8.26} # Allmendstrasse 3, 5300 Turgi
+    # X1-end

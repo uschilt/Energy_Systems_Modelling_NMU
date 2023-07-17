@@ -1,0 +1,137 @@
+##
+# TECHNOLOGY DEFINITIONS
+##
+
+# Note: '-start' and '-end' is used in tutorial documentation only
+
+# supply_power_plus-start
+tech_groups:
+    supply_power_plus:
+        essentials:
+            parent: supply_plus
+            carrier: electricity
+# supply_power_plus-end
+
+techs:
+
+##-GRID SUPPLY-##
+    # supply-start
+    supply_grid_power:
+        essentials:
+            name: 'National grid import'
+            color: '#C5ABE3'
+            parent: supply
+            carrier: electricity
+        constraints:
+            resource: inf
+            energy_cap_max: 2000
+            lifetime: 25
+        costs:
+            # monetary:
+                # interest_rate: 0.04
+                # energy_cap: 650
+                # om_con: 0.25 # CHF/kWh electricity price #ppt
+            emissions:
+                om_con: 0.3 # kg Co2/kWh carrier consuption cost
+
+    # supply-end
+
+##-Renewables-##
+    # pv-start
+    pv:
+        essentials:
+            name: 'Solar photovoltaic power'
+            color: '#F9D956'
+            parent: supply_power_plus
+        constraints:
+            export_carrier: electricity
+            resource: file=pv_resource.csv:per_area  # hourly kWh/m2 yield (at inverter, 50Hz, 230V); Model: Bellini et al. 2009; Adjusted for HyTES project
+            #resource: file=pv_resource.csv:tot_kWh   # total yield kWh at max. potential
+            resource_unit: energy_per_area # kWh/m2
+            parasitic_eff: 1.00 # inverter losses already considered in resource file
+            # energy_cap_max: 10 # approximation based on available roof area (south) and high eff. PV modules
+            resource_area_max: 57 # (m2) only south-roof side considered
+            force_resource: true # 
+            # resource_area_per_energy_cap: 7 # 7m2 of panels needed to fit 1kWp of panels - already considered in resource file
+            lifetime: 25
+        costs:
+            # monetary:
+                # interest_rate: 0.04 # TBC
+                # energy_cap: 1825
+                # export: -0.10 # feed-in tariff (listed as a "negative cost")
+                # om_con: 0.00 # /kWh carrier consumption cost
+            emissions:
+                om_con: 0.00 # kg Co2/kWh carrier consumption cost
+    # pv-end
+    
+##-Storage-##
+
+    tes:
+        essentials:
+            name: 'thermal energy storage'
+            color: '#EF008C'
+            parent: storage
+            carrier_in: heat
+            carrier_out: heat
+        constraints:
+            storage_cap_max: 200 # max. storage capacity (kWh)
+        costs:
+            emissions:
+                om_prod: 0.00 # kg Co2/kWh carrier production cost
+            
+            
+
+
+# Conversion
+
+
+# Conversion_plus
+
+    # ahp-start / Stiebel Eltron - WPL 13 cool I
+    ahp:
+        essentials:
+            name: 'Air source heat pump'
+            color: '#860720'    
+            parent: conversion_plus
+            carrier_in: electricity
+            # carrier_out: [heat, cooling]
+            carrier_out: heat
+            primary_carrier_out: heat
+        constraints:
+            energy_eff: 1
+            energy_cap_max: 6.7 # kW
+            carrier_ratios:
+                carrier_out:
+                    heat: 3.4 # COP - TBC
+                    # cooling: 2.4 # COP - TBC
+            lifetime: 25 # years
+        costs:
+            # monetary:
+                # interest_rate: 0.04
+                # energy_cap: 2679 # cost of built capacity per kW
+            emissions:
+                om_con: 0.0 # kg Co2/kWh carrier consuption cost
+    
+    # ahp-end
+
+##-DEMAND-##
+    # demand-start
+    demand_electricity:
+        essentials:
+            name: 'Electrical demand'
+            color: '#072486'
+            parent: demand
+            carrier: electricity
+
+    demand_heat:
+        essentials:
+            name: 'Heat demand'
+            color: '#660507'
+            parent: demand
+            carrier: heat
+    # demand-end
+
+##-DISTRIBUTION-##
+    # transmission-start
+
+    # transmission-end
